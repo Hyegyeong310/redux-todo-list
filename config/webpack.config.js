@@ -79,7 +79,11 @@ module.exports = function(webpackEnv) {
       },
       {
         loader: require.resolve('css-loader'),
-        options: cssOptions
+        options: {
+          importLoaders: 1,
+          modules: true,
+          localIdentName: '[path][name]_ _[local]--[hash:base64:5]'
+        }
       },
       {
         // Options for PostCSS as we reference these options twice
@@ -104,6 +108,12 @@ module.exports = function(webpackEnv) {
             postcssNormalize()
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap
+        }
+      },
+      {
+        loader: require.resolve('sass-loader'),
+        options: {
+          includePaths: [paths.styles]
         }
       }
     ].filter(Boolean);
@@ -425,17 +435,13 @@ module.exports = function(webpackEnv) {
             {
               test: sassRegex,
               exclude: sassModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 2,
-                sourceMap: isEnvProduction && shouldUseSourceMap
-              }).concat({
-                loader: require.resolve('sass-loader'),
-                options: {
-                  includePaths: [paths.appSrc + './styles'],
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                  data: `@import 'utils';`
-                }
-              }),
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap
+                },
+                'sass-loader'
+              ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
