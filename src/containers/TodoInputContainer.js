@@ -4,7 +4,7 @@ import TodoInput from '../components/TodoInput';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as inputActions from '../modules/index';
+import * as inputActions from '../modules/input';
 import * as todosActions from '../modules/todos';
 
 class TodoInputContainer extends Component {

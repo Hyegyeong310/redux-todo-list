@@ -8,12 +8,12 @@ import * as todosActions from '../modules/todos';
 
 class TodoListContainer extends Component {
   handleToggle = id => {
-    const { TodosActions } = this.props;
-    TodosActions.toggle(id);
+    const { todosActions } = this.props;
+    todosActions.toggle(id);
   };
   handleRemove = id => {
-    const { TodosActions } = this.props;
-    TodosActions.remove(id);
+    const { todosActions } = this.props;
+    todosActions.remove(id);
   };
   render() {
     const { todos } = this.props;
