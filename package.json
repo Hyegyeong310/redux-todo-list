@@ -132,5 +132,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "fstream": "^1.0.12"
   }
 }
